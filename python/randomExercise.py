@@ -1,12 +1,20 @@
-import random
+from random import shuffle
 
 
 def randomExercises(filename):
     try:
         with open(filename, "r") as file:
             exercises = file.readlines()
-            random.shuffle(exercises)
-            print(split_into_groups_of_three(exercises))
+            shuffle(exercises)
+            check_repeated_exercises(exercises)
+
+        with open(filename, "w") as file:
+            for exercise in exercises:
+                file.write(exercise)
+
+        print(
+            f"Exercises from {filename} have been successfully shuffled. Check file to confirm."
+        )
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")
@@ -19,8 +27,25 @@ def check_repeated_exercises(list_exercises):
             list_fully_checked = True
 
 
-def split_into_groups_of_three(list_exercises):
-    list_of_groups = []
-    for i in range(0, len(list_exercises), 3):
-        list_of_groups.append(list_exercises[i : i + 3])
-    return list_of_groups
+def move_repeated_exercises(exercise_list):
+    def move_element(element, to_start=False):
+        exercise_list.remove(element)
+        if to_start:
+            exercise_list.insert(0, element)
+        else:
+            exercise_list.append(element)
+
+    i = 0
+    while i < len(exercise_list) - len(exercise_list) % 3:
+        chunk = exercise_list[i : i + 3]
+        for element in chunk:
+            if chunk.count(element) > 1:
+                move_element(element, to_start=(i + 3 >= len(exercise_list)))
+                # test console statement to see when repeated items are moved
+                # print(f"moved a repeated exercise in a set:{element}")
+                return False
+        i += 3
+    return True
+
+
+randomExercises("exercises.txt")
