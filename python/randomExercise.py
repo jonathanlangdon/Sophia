@@ -5,6 +5,7 @@ def randomExercises(filename):
     try:
         with open(filename, "r") as file:
             exercises = file.readlines()
+            print("...Shuffling...\n")
             shuffle(exercises)
             check_repeated_exercises(exercises)
 
@@ -41,8 +42,7 @@ def move_repeated_exercises(exercise_list):
         for element in chunk:
             if chunk.count(element) > 1:
                 move_element(element, to_start=(i + 3 >= len(exercise_list)))
-                # test console statement to see when repeated items are moved
-                # print(f"moved a repeated exercise in a set:{element}")
+                print("Found a repeat exercise in a set... successfully moved it\n")
                 return False
         i += 3
     return True
