@@ -12,6 +12,13 @@ def randomExercises(filename):
         print(f"An error occurred: {str(e)}")
 
 
+def check_repeated_exercises(list_exercises):
+    list_fully_checked = False
+    while not list_fully_checked:
+        if move_repeated_exercises(list_exercises):
+            list_fully_checked = True
+
+
 def split_into_groups_of_three(list_exercises):
     list_of_groups = []
     for i in range(0, len(list_exercises), 3):
