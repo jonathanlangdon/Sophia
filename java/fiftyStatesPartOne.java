@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class fiftyStates {
+public class fiftyStatesPartOne {
   static String[][] statesAndCapitals = {
       { "Alabama", "Montgomery" },
       { "Alaska", "Juneau" },
@@ -68,27 +68,42 @@ public class fiftyStates {
     }
   }
 
-  public static void checkReadiness() {
-    Scanner scanner = new Scanner(System.in);
-    boolean initializeGame = true;
-    while (initializeGame) {
+  public static boolean checkReadiness(Scanner scanner) {
+    boolean continueInitialization = true;
+    while (continueInitialization) {
       System.out.println("Ready to be tested on state capitals? Enter 'Y' or 'N'");
       String readiness = scanner.nextLine();
       if (readiness.equalsIgnoreCase("n")) {
-        scanner.close();
-        return;
+        return false;
       } else if (readiness.equalsIgnoreCase("y")) {
-        initializeGame = false;
+        continueInitialization = false;
       }
     }
-    scanner.close();
+    return true;
   }
 
-  public static void playGame() {
-    checkReadiness();
+  public static void playGame(Scanner scanner) {
+    boolean ready = checkReadiness(scanner);
+    if (!ready)
+      return;
+    int score = 0;
+    for (String[] capital : statesAndCapitals) {
+      String curCapital = capital[1];
+      String curState = capital[0];
+      System.out.println("\nWhat is the capital of " + curState + "?");
+      String answerInput = scanner.nextLine();
+      if (answerInput.equalsIgnoreCase(curCapital)) {
+        score += 1;
+        System.out.println("\nYou are correct! " + curCapital + " is the capital of " + curState);
+      } else {
+        System.out.println("Oh, bummer! That isn't right. " + curCapital + " is the capital of " + curState);
+      }
+    }
+    System.out.println("\nYou did it!  All states complete. Your score out of 50 is " + score + "\n");
   }
 
   public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
     System.out.println("States & Capitals sorted by State name:");
     System.out.println(Arrays.deepToString(statesAndCapitals));
     System.out.println("Now sorting by capital using Bubble Sort...");
@@ -96,7 +111,8 @@ public class fiftyStates {
     System.out.println("Done!");
     System.out.println("New array sorted by capitals:");
     System.out.println(Arrays.deepToString(statesAndCapitals));
-    playGame();
+    playGame(scanner);
+    scanner.close();
   }
 
 }
