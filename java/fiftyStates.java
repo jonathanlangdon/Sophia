@@ -68,8 +68,24 @@ public class fiftyStates {
     }
   }
 
+  public static void checkReadiness() {
+    Scanner scanner = new Scanner(System.in);
+    boolean initializeGame = true;
+    while (initializeGame) {
+      System.out.println("Ready to be tested on state capitals? Enter 'Y' or 'N'");
+      String readiness = scanner.nextLine();
+      if (readiness.equalsIgnoreCase("n")) {
+        scanner.close();
+        return;
+      } else if (readiness.equalsIgnoreCase("y")) {
+        initializeGame = false;
+      }
+    }
+    scanner.close();
+  }
+
   public static void playGame() {
-    System.out.println();
+    checkReadiness();
   }
 
   public static void main(String[] args) {
@@ -80,6 +96,7 @@ public class fiftyStates {
     System.out.println("Done!");
     System.out.println("New array sorted by capitals:");
     System.out.println(Arrays.deepToString(statesAndCapitals));
+    playGame();
   }
 
 }
