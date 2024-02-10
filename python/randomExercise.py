@@ -36,7 +36,7 @@ def move_repeated_exercises(exercise_list):
         exercise_list.insert(random_index, element)
 
     i = 0
-    set_count = 4
+    set_count = 2
     while i < len(exercise_list) - len(exercise_list) % set_count:
         set = exercise_list[i: i + set_count]
         # print(f"current set: {set}")
