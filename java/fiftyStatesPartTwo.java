@@ -1,121 +1,101 @@
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class fiftyStatesPartTwo {
-  public static Map<String, String> statesAndCapitals = new HashMap<>();
+  public static Map<String, String> capitalsHashMap = new HashMap<>();
+  public static Map<String, String> capitalsTreeMap = new TreeMap<>();
 
   public static void setupCapitals() {
-    statesAndCapitals.put("Alabama", "Montgomery");
-    statesAndCapitals.put("Alaska", "Juneau");
-    statesAndCapitals.put("Arizona", "Phoenix");
-    statesAndCapitals.put("Arkansas", "Little Rock");
-    statesAndCapitals.put("California", "Sacramento");
-    statesAndCapitals.put("Colorado", "Denver");
-    statesAndCapitals.put("Connecticut", "Hartford");
-    statesAndCapitals.put("Delaware", "Dover");
-    statesAndCapitals.put("Florida", "Tallahassee");
-    statesAndCapitals.put("Georgia", "Atlanta");
-    statesAndCapitals.put("Hawaii", "Honolulu");
-    statesAndCapitals.put("Idaho", "Boise");
-    statesAndCapitals.put("Illinois", "Springfield");
-    statesAndCapitals.put("Indiana", "Indianapolis");
-    statesAndCapitals.put("Iowa", "Des Moines");
-    statesAndCapitals.put("Kansas", "Topeka");
-    statesAndCapitals.put("Kentucky", "Frankfort");
-    statesAndCapitals.put("Louisiana", "Baton Rouge");
-    statesAndCapitals.put("Maine", "Augusta");
-    statesAndCapitals.put("Maryland", "Annapolis");
-    statesAndCapitals.put("Massachusetts", "Boston");
-    statesAndCapitals.put("Michigan", "Lansing");
-    statesAndCapitals.put("Minnesota", "Saint Paul");
-    statesAndCapitals.put("Mississippi", "Jackson");
-    statesAndCapitals.put("Missouri", "Jefferson City");
-    statesAndCapitals.put("Montana", "Helena");
-    statesAndCapitals.put("Nebraska", "Lincoln");
-    statesAndCapitals.put("Nevada", "Carson City");
-    statesAndCapitals.put("New Hampshire", "Concord");
-    statesAndCapitals.put("New Jersey", "Trenton");
-    statesAndCapitals.put("New Mexico", "Santa Fe");
-    statesAndCapitals.put("New York", "Albany");
-    statesAndCapitals.put("North Carolina", "Raleigh");
-    statesAndCapitals.put("North Dakota", "Bismarck");
-    statesAndCapitals.put("Ohio", "Columbus");
-    statesAndCapitals.put("Oklahoma", "Oklahoma City");
-    statesAndCapitals.put("Oregon", "Salem");
-    statesAndCapitals.put("Pennsylvania", "Harrisburg");
-    statesAndCapitals.put("Rhode Island", "Providence");
-    statesAndCapitals.put("South Carolina", "Columbia");
-    statesAndCapitals.put("South Dakota", "Pierre");
-    statesAndCapitals.put("Tennessee", "Nashville");
-    statesAndCapitals.put("Texas", "Austin");
-    statesAndCapitals.put("Utah", "Salt Lake City");
-    statesAndCapitals.put("Vermont", "Montpelier");
-    statesAndCapitals.put("Virginia", "Richmond");
-    statesAndCapitals.put("Washington", "Olympia");
-    statesAndCapitals.put("West Virginia", "Charleston");
-    statesAndCapitals.put("Wisconsin", "Madison");
-    statesAndCapitals.put("Wyoming", "Cheyenne");
+    capitalsHashMap.put("Alabama", "Montgomery");
+    capitalsHashMap.put("Alaska", "Juneau");
+    capitalsHashMap.put("Arizona", "Phoenix");
+    capitalsHashMap.put("Arkansas", "Little Rock");
+    capitalsHashMap.put("California", "Sacramento");
+    capitalsHashMap.put("Colorado", "Denver");
+    capitalsHashMap.put("Connecticut", "Hartford");
+    capitalsHashMap.put("Delaware", "Dover");
+    capitalsHashMap.put("Florida", "Tallahassee");
+    capitalsHashMap.put("Georgia", "Atlanta");
+    capitalsHashMap.put("Hawaii", "Honolulu");
+    capitalsHashMap.put("Idaho", "Boise");
+    capitalsHashMap.put("Illinois", "Springfield");
+    capitalsHashMap.put("Indiana", "Indianapolis");
+    capitalsHashMap.put("Iowa", "Des Moines");
+    capitalsHashMap.put("Kansas", "Topeka");
+    capitalsHashMap.put("Kentucky", "Frankfort");
+    capitalsHashMap.put("Louisiana", "Baton Rouge");
+    capitalsHashMap.put("Maine", "Augusta");
+    capitalsHashMap.put("Maryland", "Annapolis");
+    capitalsHashMap.put("Massachusetts", "Boston");
+    capitalsHashMap.put("Michigan", "Lansing");
+    capitalsHashMap.put("Minnesota", "Saint Paul");
+    capitalsHashMap.put("Mississippi", "Jackson");
+    capitalsHashMap.put("Missouri", "Jefferson City");
+    capitalsHashMap.put("Montana", "Helena");
+    capitalsHashMap.put("Nebraska", "Lincoln");
+    capitalsHashMap.put("Nevada", "Carson City");
+    capitalsHashMap.put("New Hampshire", "Concord");
+    capitalsHashMap.put("New Jersey", "Trenton");
+    capitalsHashMap.put("New Mexico", "Santa Fe");
+    capitalsHashMap.put("New York", "Albany");
+    capitalsHashMap.put("North Carolina", "Raleigh");
+    capitalsHashMap.put("North Dakota", "Bismarck");
+    capitalsHashMap.put("Ohio", "Columbus");
+    capitalsHashMap.put("Oklahoma", "Oklahoma City");
+    capitalsHashMap.put("Oregon", "Salem");
+    capitalsHashMap.put("Pennsylvania", "Harrisburg");
+    capitalsHashMap.put("Rhode Island", "Providence");
+    capitalsHashMap.put("South Carolina", "Columbia");
+    capitalsHashMap.put("South Dakota", "Pierre");
+    capitalsHashMap.put("Tennessee", "Nashville");
+    capitalsHashMap.put("Texas", "Austin");
+    capitalsHashMap.put("Utah", "Salt Lake City");
+    capitalsHashMap.put("Vermont", "Montpelier");
+    capitalsHashMap.put("Virginia", "Richmond");
+    capitalsHashMap.put("Washington", "Olympia");
+    capitalsHashMap.put("West Virginia", "Charleston");
+    capitalsHashMap.put("Wisconsin", "Madison");
+    capitalsHashMap.put("Wyoming", "Cheyenne");
   };
 
-  public static void bubbleSort(String[][] array) {
-    int n = array.length;
-    for (int i = 0; i < n - 1; i++) {
-      for (int j = 0; j < n - i - 1; j++) {
-        if (array[j][1].compareTo(array[j + 1][1]) > 0) {
-          String[] temp = array[j];
-          array[j] = array[j + 1];
-          array[j + 1] = temp;
+  public static void addToTreeMap(Map<String, String> sourceMap, Map<String, String> targetMap) {
+    for (Map.Entry<String, String> entry : sourceMap.entrySet()) {
+      targetMap.put(entry.getKey(), entry.getValue());
+    }
+  }
+
+  public static void playGame(Scanner scanner) {
+    boolean continueGame = true;
+    while (continueGame) {
+      System.out.println("\nPlease enter a state to find out it's capital or type 'exit' to quit");
+      String state = scanner.nextLine();
+      state = state.substring(0, 1).toUpperCase() + state.substring(1).toLowerCase();
+      if (state.equalsIgnoreCase("Exit")) {
+        return;
+      } else {
+        if (capitalsHashMap.containsKey(state)) {
+          System.out.println("\nThe capital of " + state + " is " + capitalsHashMap.get(state));
         }
       }
     }
   }
 
-  public static boolean checkReadiness(Scanner scanner) {
-    boolean continueInitialization = true;
-    while (continueInitialization) {
-      System.out.println("Ready to be tested on state capitals? Enter 'Y' or 'N'");
-      String readiness = scanner.nextLine();
-      if (readiness.equalsIgnoreCase("n")) {
-        return false;
-      } else if (readiness.equalsIgnoreCase("y")) {
-        continueInitialization = false;
-      }
-    }
-    return true;
-  }
-
-  public static void playGame(Scanner scanner) {
-    boolean ready = checkReadiness(scanner);
-    if (!ready)
-      return;
-    int score = 0;
-    for (String[] capital : statesAndCapitals) {
-      String curCapital = capital[1];
-      String curState = capital[0];
-      System.out.println("\nWhat is the capital of " + curState + "?");
-      String answerInput = scanner.nextLine();
-      if (answerInput.equalsIgnoreCase(curCapital)) {
-        score += 1;
-        System.out.println("\nYou are correct! " + curCapital + " is the capital of " + curState);
-      } else {
-        System.out.println("Oh, bummer! That isn't right. " + curCapital + " is the capital of " + curState);
-      }
-    }
-    System.out.println("\nYou did it!  All states complete. Your score out of 50 is " + score + "\n");
-  }
-
   public static void main(String[] args) {
     setupCapitals();
     Scanner scanner = new Scanner(System.in);
-    System.out.println("States & Capitals sorted by State name:");
-    System.out.println(Arrays.deepToString(statesAndCapitals));
-    System.out.println("Now sorting by capital using Bubble Sort...");
-    bubbleSort(statesAndCapitals);
-    System.out.println("Done!");
-    System.out.println("New array sorted by capitals:");
-    System.out.println(Arrays.deepToString(statesAndCapitals));
+    System.out.println("\nStates & Capitals from Hashmap:");
+    for (Map.Entry<String, String> entry : capitalsHashMap.entrySet()) {
+      System.out.println(entry.getKey() + " - " + entry.getValue());
+    }
+    System.out.println("\nNow sorting by capital by adding to a Tree Map...");
+    addToTreeMap(capitalsHashMap, capitalsTreeMap);
+    System.out.println("\nDone!");
+    System.out.println("\nNew Tree Map sorted by state name:");
+    for (Map.Entry<String, String> entry : capitalsTreeMap.entrySet()) {
+      System.out.println(entry.getKey() + " - " + entry.getValue());
+    }
     playGame(scanner);
     scanner.close();
   }
