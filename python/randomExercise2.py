@@ -11,23 +11,23 @@ def check_repeats(the_list, index):
     if the_list[index] == the_list[index - 1]:
         print("fount repeat 1 away... moving to index 0")
         the_list.insert(0, the_list.pop(index))
-        print(the_list)
         moved_item = True
     if index >= 2 and the_list[index] == the_list[index - 2]:
-        print("fount repeat 2 away... moving to index 0")
-        the_list.insert(0, the_list.pop(index))
-        print(the_list)
+        if index < 3:
+            print("fount repeat 2 away... moving to index + 1")
+            the_list.insert(index + 1, the_list.pop(index))
+        else:
+            print("fount repeat 2 away... moving to index - 1")
+            the_list.insert(index - 1, the_list.pop(index))
         moved_item = True
     if the_list[0] == the_list[1]:
         print("first 2 items the same, moving...")
         the_list.append(the_list.pop(0))
-        print(the_list)
         moved_item = True
-    (
+    if moved_item:
         check_repeats(the_list, len(the_list) - 1)
-        if moved_item
-        else check_repeats(the_list, index - 1)
-    )
+    else:
+        check_repeats(the_list, index - 1)
 
 
 def randomExercises(filename):
@@ -38,7 +38,9 @@ def randomExercises(filename):
         other_ex = []
         for item in exercises:
             arm_ex.append(item) if item[:3] == "arm" else other_ex.append(item)
+        print("\n\n")
         check_repeats(arm_ex, len(arm_ex) - 1)
+        print("\n\n")
         check_repeats(other_ex, len(other_ex) - 1)
         print("...Shuffling & reordering...\n")
         shuffle(arm_ex)
