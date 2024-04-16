@@ -15,7 +15,7 @@ def randomExercises(filename):
                 file.write(exercise)
 
         print(
-            f"Exercises from {filename} have been successfully shuffled. Check file to confirm."
+            f"{filename} has been successfully shuffled with no neighbor repeats. \nCheck file to confirm."
         )
 
     except Exception as e:
@@ -35,18 +35,16 @@ def move_repeated_exercises(exercise_list):
         random_index = randint(0, len(exercise_list))
         exercise_list.insert(random_index, element)
 
-    i = 0
-    set_count = 4
-    while i < len(exercise_list) - len(exercise_list) % set_count:
-        set = exercise_list[i: i + set_count]
-        # print(f"current set: {set}")
-        for j, exercise in enumerate(set):
-            if set.count(exercise) > 1:
-                move_exercise_to_random_index(i + j)
-                print("Found a repeat exercise in a set... successfully moved it\n")
-                return False
-        print(f"Items through index {i + set_count} checked")
-        i += set_count
+    i = 1
+    while i < len(exercise_list):
+        current_exercise_word = exercise_list[i].split()[0] if exercise_list[i].split() else ''
+        prev_exercise_word = exercise_list[i-1].split()[0] if exercise_list[i-1].split() else ''
+        if current_exercise_word == prev_exercise_word:
+            move_exercise_to_random_index(i)
+            print("Found a repeat exercise in a set... successfully moved it\n")
+            return False
+        print(f"Items through index {i}({exercise_list[i].strip()}) checked")
+        i += 1
     return True
 
 
