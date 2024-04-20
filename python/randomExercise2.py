@@ -1,39 +1,60 @@
 from random import shuffle
 
 
+# confirm file has no blank lines or duplicate exercises that are not synced
+def validate_file_format(exercise_list):
+    for i in range(0, len(exercise_list)):
+        if exercise_list[i] == "" or exercise_list[i] == "\n":
+            print("blank line in file, please check")
+            return False
+        current_i_item = exercise_list[i][13:17]
+        for j in range(0, len(exercise_list)):
+            if i == j:
+                continue
+            repeated_items = current_i_item == exercise_list[j][13:17]
+            if repeated_items and exercise_list[i] is not exercise_list[j]:
+                print(
+                    "There are identical exercises that are not synchronized. Check your file"
+                )
+                return False
+    return True
+
+
 # check order of arm exercises for duplicate orders
 # start with end of list
-def check_repeats(the_list, index):
+def check_repeats(exercise_list, index):
     if index == 0:
         return
     moved_item = False
     print(f"Checking arm exercises at index {index}")
-    if the_list[index] == the_list[index - 1]:
+    if exercise_list[index] == exercise_list[index - 1]:
         print("fount repeat 1 away... moving to index 0")
-        the_list.insert(0, the_list.pop(index))
+        exercise_list.insert(0, exercise_list.pop(index))
         moved_item = True
-    if index >= 2 and the_list[index] == the_list[index - 2]:
+    if index >= 2 and exercise_list[index] == exercise_list[index - 2]:
         if index < 3:
             print("fount repeat 2 away... moving to index + 1")
-            the_list.insert(index + 1, the_list.pop(index))
+            exercise_list.insert(index + 1, exercise_list.pop(index))
         else:
             print("fount repeat 2 away... moving to index - 1")
-            the_list.insert(index - 1, the_list.pop(index))
+            exercise_list.insert(index - 1, exercise_list.pop(index))
         moved_item = True
-    if the_list[0] == the_list[1]:
+    if exercise_list[0] == exercise_list[1]:
         print("first 2 items the same, moving...")
-        the_list.append(the_list.pop(0))
+        exercise_list.append(exercise_list.pop(0))
         moved_item = True
     if moved_item:
-        check_repeats(the_list, len(the_list) - 1)
+        check_repeats(exercise_list, len(exercise_list) - 1)
     else:
-        check_repeats(the_list, index - 1)
+        check_repeats(exercise_list, index - 1)
 
 
 def randomExercises(filename):
     try:
         with open(filename, "r") as file:
             exercises = file.readlines()
+        if validate_file_format(exercises) is False:
+            return
         arm_ex = []  # make lists for exercises
         other_ex = []
         for item in exercises:
