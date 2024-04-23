@@ -5,7 +5,7 @@ from random import shuffle
 def validate_file_format(exercise_list):
     for i in range(0, len(exercise_list)):
         if exercise_list[i] == "" or exercise_list[i] == "\n":
-            print("blank line in file, please check")
+            print(f"blank line on line {i}, please check")
             return False
         current_i_item = exercise_list[i][13:17]
         for j in range(0, len(exercise_list)):
